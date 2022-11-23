@@ -3,6 +3,8 @@ package main
 import "fuvidy/internal"
 
 func main() {
-	agentInfo := internal.GetAgentInfo(5)
-	println(agentInfo)
+	for _, agent := range internal.GetOnlineAgent() {
+		println(agent.UserName)
+	}
+	internal.GetAgentInfo([]int{1})
 }
