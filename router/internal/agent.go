@@ -3,18 +3,18 @@ package internal
 import (
 	"fuvidy/internal/util"
 	"gorm.io/gorm"
-	"time"
 )
 
 type Agent struct {
-	UserId        int `gorm:"primary_key"`
-	UserName      string
-	MaxReception  int
-	Area          string
-	LoginTime     time.Time
-	Skill         string
-	OverflowSkill string
-	OnLine        int
+	UserId            int `gorm:"primary_key"`
+	UserName          string
+	MaxReception      int
+	CurrencyReception int
+	Area              string
+	LoginTime         int64
+	Skill             string
+	OverflowSkill     string
+	OnLine            int
 }
 
 var db *gorm.DB
@@ -40,9 +40,9 @@ func GetAgentInfo(userId []int) []*Agent {
 }
 
 //获取在线坐席信息
-func GetOnlineAgent() []*Agent {
+func GetOnlineAgent(skill string) []*Agent {
 	var agent []*Agent
-	db.Where("online = 1").Find(&agent)
+	db.Where("online = 1").Where("skill = ?", skill).Find(&agent)
 	return agent
 }
 

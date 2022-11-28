@@ -1,10 +1,17 @@
 package main
 
-import "fuvidy/internal"
+import (
+	"fuvidy/internal"
+	"time"
+)
 
 func main() {
-	for _, agent := range internal.GetOnlineAgent() {
-		println(agent.UserName)
+	consumer := internal.GetConsumer("咨询")
+	print("id:", consumer.Id, "\tskill:", consumer.Skill)
+	print(time.Now().Unix())
+	loginMap := internal.Matching(consumer)
+	for k, v := range loginMap {
+		println("坐席号:", k, "\t登录时长:", v)
 	}
-	internal.GetAgentInfo([]int{1})
+
 }
